@@ -1,0 +1,8 @@
+sources/
+AGENTS.md
+design-archive/
+.sites-runtime/
+.DS_Store
+*.tar.gz
+node_modules/
+.env*
