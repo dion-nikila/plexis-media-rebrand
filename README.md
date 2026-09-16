@@ -22,4 +22,4 @@ Open http://localhost:4173. No build step or package installation is required.
 
 Set `email` in `dist/contact-config.json` to the agency's enquiry address. The form validates input and opens a prefilled email draft in the visitor's email app. It does not send mail through a server. Until configured, the form explicitly reports that enquiries are not connected.
 
-Motion respects the visitor's reduced-motion preference. The site is not configured for automatic deployment.
+Motion respects the visitor's reduced-motion preference. Vercel serves `dist` using `vercel.json`. The GitHub repository is connected for automatic deployments.
