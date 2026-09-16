@@ -6,3 +6,5 @@ design-archive/
 *.tar.gz
 node_modules/
 .env*
+
+output/
