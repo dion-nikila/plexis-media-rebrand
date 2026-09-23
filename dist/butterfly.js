@@ -28,14 +28,14 @@ if (butterflyScene && butterflyButton) {
 if (butterflyScene && 'IntersectionObserver' in window && 'matchMedia' in window &&
     butterflyLayersSupported) {
   const heroStage = butterflyScene.closest('.hero-stage');
-  const canAnimate = matchMedia('(min-width: 700px) and (prefers-reduced-motion: no-preference)');
+  const canAnimate = matchMedia('(prefers-reduced-motion: no-preference)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   let inView = false;
   let frame = 0;
   let tiltX = 0;
   let tiltY = 0;
 
-  function updateMotion() {
+  const updateMotion = () => {
     const enabled = canAnimate.matches;
     butterflyScene.classList.toggle('is-enhanced', enabled);
     butterflyScene.classList.toggle('is-active', enabled && inView && !document.hidden);
@@ -43,7 +43,7 @@ if (butterflyScene && 'IntersectionObserver' in window && 'matchMedia' in window
       butterflyScene.style.removeProperty('--tilt-x');
       butterflyScene.style.removeProperty('--tilt-y');
     }
-  }
+  };
 
   new IntersectionObserver(([entry]) => {
     inView = entry.isIntersecting;

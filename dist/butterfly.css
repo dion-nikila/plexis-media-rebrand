@@ -44,7 +44,7 @@
   clip-path: polygon(27% 0, 73% 0, 70% 15%, 58% 29%, 54% 39%, 54% 55%, 53% 77%, 51% 100%, 49% 100%, 47% 77%, 46% 55%, 46% 39%, 42% 29%, 30% 15%);
   transform: translateZ(12px);
 }
-@media (min-width: 700px) and (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) {
   .butterfly-scene.is-enhanced .butterfly-static { visibility: hidden; }
   .butterfly-scene.is-enhanced .butterfly-wing,
   .butterfly-scene.is-enhanced .butterfly-body { visibility: visible; }
@@ -70,7 +70,7 @@
   29% { transform: rotateY(7deg) rotateZ(.1deg); }
   35% { transform: rotateY(24deg) rotateZ(-.8deg); }
 }
-@media (prefers-reduced-motion: reduce), (max-width: 699px) {
+@media (prefers-reduced-motion: reduce) {
   .butterfly-scene { transform: none; transition: none; }
   .butterfly-scene .butterfly-static { visibility: visible; }
   .butterfly-scene .butterfly-wing,
