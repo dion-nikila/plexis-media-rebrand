@@ -21,7 +21,8 @@ if (butterflyScene && butterflyButton) {
     butterflyScene.classList.add('is-fluttering');
     flutterTimer = setTimeout(() => butterflyScene.classList.remove('is-fluttering'), 1150);
   });
-  if (reducedMotion) reducedMotion.addEventListener('change', updateButton);
+  if (reducedMotion && reducedMotion.addEventListener) reducedMotion.addEventListener('change', updateButton);
+  else if (reducedMotion && reducedMotion.addListener) reducedMotion.addListener(updateButton);
   updateButton();
 }
 if (butterflyScene && 'IntersectionObserver' in window && 'matchMedia' in window &&
@@ -67,7 +68,8 @@ if (butterflyScene && 'IntersectionObserver' in window && 'matchMedia' in window
     butterflyScene.style.removeProperty('--tilt-x');
     butterflyScene.style.removeProperty('--tilt-y');
   });
-  canAnimate.addEventListener('change', updateMotion);
+  if (canAnimate.addEventListener) canAnimate.addEventListener('change', updateMotion);
+  else if (canAnimate.addListener) canAnimate.addListener(updateMotion);
   document.addEventListener('visibilitychange', updateMotion);
   updateMotion();
 }

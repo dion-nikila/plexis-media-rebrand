@@ -1,6 +1,6 @@
 document.querySelectorAll('.service').forEach((service) => {
-  service.addEventListener('toggle', () => {
-    if (service.open) document.querySelectorAll('.service').forEach((other) => {
+  service.querySelector('summary').addEventListener('click', () => {
+    document.querySelectorAll('.service').forEach((other) => {
       if (other !== service) other.open = false;
     });
   });
@@ -17,15 +17,12 @@ if (form) {
   event.preventDefault();
   const status = document.querySelector('#form-status');
   const button = form.querySelector('button[type="submit"]');
+  const endpoint = new URL(form.action);
   button.disabled = true;
   status.textContent = 'Sending your enquiry…';
   try {
-   const response = await fetch('/contact-config.json');
-   if (!response.ok) throw new Error();
-   const {email} = await response.json();
-   if (!email) {status.textContent = 'Enquiries are not connected yet. Please check back soon.'; return;}
    const data = Object.fromEntries(new FormData(form));
-   const submission = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(email), {
+   const submission = await fetch(`${endpoint.origin}/ajax${endpoint.pathname}`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
     body: JSON.stringify(data)
@@ -35,7 +32,13 @@ if (form) {
    if (result.success !== true && result.success !== 'true') throw new Error();
    form.reset();
    status.textContent = 'Thanks — your enquiry has been submitted. We’ll be in touch by email.';
-  } catch {status.textContent = 'Your enquiry could not be sent. Please try again.';}
+  } catch {
+   status.textContent = 'Your enquiry could not be sent. Please try again or ';
+   const link = document.createElement('a');
+   link.href = `mailto:${decodeURIComponent(endpoint.pathname.slice(1))}`;
+   link.textContent = 'email us directly';
+   status.append(link, '.');
+  }
   finally {button.disabled = false;}
  });
 }
@@ -44,7 +47,8 @@ const heroMotion = matchMedia('(prefers-reduced-motion: reduce)');
 function updateHeroMotion() {
  document.querySelectorAll('.path-tile').forEach(tile => tile.style.animationPlayState = heroMotion.matches ? 'paused' : 'running');
 }
-heroMotion.addEventListener('change', updateHeroMotion);
+if (heroMotion.addEventListener) heroMotion.addEventListener('change', updateHeroMotion);
+else if (heroMotion.addListener) heroMotion.addListener(updateHeroMotion);
 updateHeroMotion();
 
 // A useful starting point, presented as a small stack of studio notes.

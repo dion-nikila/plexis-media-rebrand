@@ -16,11 +16,11 @@ Open http://localhost:4173. No build step or package installation is required.
 
 - `dist/`: complete static website
 - `dist/assets/`: local artwork and fonts
-- `dist/contact-config.json`: enquiry email destination
+- `dist/contact/index.html`: enquiry form and destination
 
 ## Contact setup
 
-The form sends enquiries through FormSubmit to the `email` in `dist/contact-config.json`. The recipient must confirm the activation email from FormSubmit after the first test submission before enquiries will reach the inbox. Check the spam folder if the activation email does not appear. FormSubmit processes and temporarily stores the submitted form data.
+The form sends enquiries through FormSubmit. Its destination is the form's `action` in `dist/contact/index.html`, which also provides a standard HTML submission if JavaScript is unavailable. The recipient must confirm FormSubmit's activation email before enquiries reach the inbox. Check the spam folder if that email does not appear. FormSubmit processes and temporarily stores submitted form data.
 
 Motion respects the visitor's reduced-motion preference. Vercel serves `dist` using `vercel.json`. The GitHub repository is connected for automatic deployments.
 
