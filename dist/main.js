@@ -31,7 +31,7 @@ if (form) {
    const result = await submission.json();
    if (result.success !== true && result.success !== 'true') throw new Error();
    form.reset();
-   status.textContent = 'Thanks — your enquiry has been submitted. We’ll be in touch by email.';
+   status.textContent = 'Thanks! Your enquiry has been submitted. We’ll be in touch by email.';
   } catch {
    status.textContent = 'Your enquiry could not be sent. Please try again or ';
    const link = document.createElement('a');
@@ -111,7 +111,7 @@ const themeColor = document.querySelector('meta[name="theme-color"]');
 if (footer && themeColor && 'IntersectionObserver' in window) {
  const pageColor = themeColor.content;
  new IntersectionObserver(([entry]) => {
-  themeColor.content = entry.isIntersecting ? '#25369c' : pageColor;
+  themeColor.content = entry.isIntersecting ? '#2e3b49' : pageColor;
  }, {threshold: 0}).observe(footer);
 }
 

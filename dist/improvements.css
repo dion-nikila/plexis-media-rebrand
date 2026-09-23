@@ -1,7 +1,7 @@
 /* Clearer text and interaction across the site. */
 :root { --site-gutter: 52px; --orange-text: #a73825; }
-html { background: var(--cobalt); }
-body { min-height: 100vh; min-height: 100dvh; background: var(--cobalt); }
+html { background: #2e3b49; }
+body { min-height: 100vh; min-height: 100dvh; background: #2e3b49; }
 .header-shell, main { background: var(--paper); }
 .visually-hidden {
   position: absolute;
@@ -45,36 +45,17 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
 #form-status { min-height: 1.5em; line-height: 1.6; }
 #form-status a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 
-/* Place the landscape above a solid footer so the safe area has one true color. */
+/* The illustrated landscape remains the full footer scene, including behind its links. */
 .contact {
   padding-top: 0;
-  background: var(--cobalt);
+  background: var(--blue) url('/assets/plexis-footer.webp') center bottom / cover no-repeat;
 }
 .contact-content {
-  position: relative;
-  isolation: isolate;
   flex: 1 0 auto;
   padding-top: 65px;
 }
-.contact-content::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 100vw;
-  transform: translateX(-50%);
-  background: var(--blue) url('/assets/plexis-footer.webp') center bottom / cover no-repeat;
-}
 .page-footer {
-  padding-top: 0;
-  background: var(--cobalt);
-}
-.page-footer::before {
-  content: '';
-  display: block;
-  height: 220px;
+  padding-top: 190px;
   background: var(--blue) url('/assets/plexis-footer.webp') center bottom / cover no-repeat;
 }
 .site-footer {
@@ -83,7 +64,7 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
   width: 100%;
   padding: 0;
   border: 0;
-  background: var(--cobalt);
+  background: linear-gradient(to bottom, rgba(17,31,58,.60), rgba(17,31,58,.70) 55%, rgba(17,31,58,.78) 100%);
   color: var(--paper);
 }
 .site-footer .footer-main {
@@ -143,13 +124,13 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
 .footer-bottom a { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; }
 .footer-bottom a span { font-size: 21px; line-height: 1; }
 
-/* A moving paper collage uses the same found objects as the rest of the page. */
+/* A typographic collage keeps the strip surreal without reusing the page artwork. */
 .ticker {
   margin-top: 38px;
   padding: 0;
   overflow: hidden;
   border-block: 1px solid var(--cobalt);
-  background: #dce5dd;
+  background: var(--blue);
   color: var(--cobalt);
   box-shadow: none;
 }
@@ -159,30 +140,58 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
   animation: ticker-collage 44s linear infinite;
   will-change: transform;
 }
-.ticker-sequence { display: flex; flex: none; align-items: center; gap: 28px; padding: 14px 28px 14px 0; }
-.ticker-word {
-  display: inline-block;
-  flex: none;
-  font-size: clamp(24px, 3.1vw, 43px);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -1.5px;
-  white-space: nowrap;
+.ticker-sequence { display: flex; flex: none; align-items: center; gap: 26px; padding: 16px 26px 16px 0; }
+.ticker-piece { display: inline-flex; flex: none; white-space: nowrap; line-height: 1; }
+.ticker-question {
+  color: var(--orange-text);
+  font-family: var(--serif);
+  font-size: clamp(42px, 4.8vw, 70px);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -3px;
+  transform: rotate(-4deg);
 }
-.ticker-word em { color: var(--orange-text); font-family: var(--serif); font-weight: 600; }
-.ticker-cutout {
-  display: block;
-  flex: none;
-  width: 105px;
-  height: 76px;
-  overflow: hidden;
-  border: 1px solid #25369c70;
+.ticker-stamp {
+  flex-direction: column;
+  gap: 7px;
+  padding: 11px 16px;
+  border: 1px solid var(--cobalt);
   background: var(--paper);
-  transform: rotate(-7deg);
+  box-shadow: 4px 4px 0 var(--cobalt);
+  transform: rotate(3deg);
 }
-.ticker-cutout:nth-of-type(even) { transform: rotate(6deg); }
-.ticker-cutout img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.ticker-spark { width: 14px; height: 14px; flex: none; background: var(--orange); transform: rotate(13deg); }
+.ticker-stamp small, .ticker-collage small, .ticker-phrase small {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+}
+.ticker-stamp strong { font-size: 24px; font-weight: 500; letter-spacing: -.6px; }
+.ticker-crossout {
+  color: var(--cobalt);
+  font-size: clamp(34px, 3.4vw, 51px);
+  font-weight: 500;
+  letter-spacing: -2px;
+  text-decoration: line-through;
+  text-decoration-color: var(--orange);
+  text-decoration-thickness: 3px;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px var(--cobalt);
+}
+.ticker-collage {
+  flex-direction: column;
+  gap: 5px;
+  padding: 9px 16px;
+  background: var(--cobalt);
+  color: var(--paper);
+  transform: rotate(-3deg);
+}
+.ticker-collage small { color: #d6dcf3; }
+.ticker-collage em { font-family: var(--serif); font-size: 34px; font-weight: 600; letter-spacing: -1.3px; }
+.ticker-asterisk { color: var(--orange-text); font-family: var(--serif); font-size: 55px; transform: rotate(14deg); }
+.ticker-phrase { flex-direction: column; gap: 8px; padding-block: 8px; border-block: 1px solid var(--cobalt); }
+.ticker-phrase strong { font-family: var(--serif); font-size: 31px; font-style: italic; font-weight: 600; letter-spacing: -1px; }
 @keyframes ticker-collage { to { transform: translate3d(-50%, 0, 0); } }
 
 /* Entrance motion gives the editorial sections a little rhythm. */
@@ -273,7 +282,7 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
   }
   .site-header.is-menu-open nav .nav-contact { display: none; }
   .contact-content { padding-top: 48px; }
-  .page-footer::before { height: 145px; }
+  .page-footer { padding-top: 90px; }
   .contact-row { margin-bottom: 36px; }
   .intro-bottom { grid-template-columns: 1fr; }
   .intro-bottom .text-link { grid-column: auto; }
@@ -329,10 +338,16 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
   .footer-bottom { padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
   .ticker { margin-top: 28px; }
   .ticker-track { animation-duration: 34s; }
-  .ticker-sequence { gap: 18px; padding: 11px 18px 11px 0; }
-  .ticker-word { font-size: 24px; letter-spacing: -.7px; }
-  .ticker-cutout { width: 76px; height: 58px; }
-  .ticker-spark { width: 10px; height: 10px; }
+  .ticker-sequence { gap: 18px; padding: 12px 18px 12px 0; }
+  .ticker-question { font-size: 42px; letter-spacing: -2px; }
+  .ticker-stamp { gap: 5px; padding: 8px 11px; box-shadow: 3px 3px 0 var(--cobalt); }
+  .ticker-stamp small, .ticker-collage small, .ticker-phrase small { font-size: 9px; letter-spacing: 1px; }
+  .ticker-stamp strong { font-size: 19px; }
+  .ticker-crossout { font-size: 33px; letter-spacing: -1px; }
+  .ticker-collage { padding: 8px 12px; }
+  .ticker-collage em { font-size: 26px; }
+  .ticker-asterisk { font-size: 40px; }
+  .ticker-phrase strong { font-size: 23px; }
   .hero-spark.spark-one { display: block; top: 8%; right: 2%; width: 30px; opacity: .8; }
   .hero-spark.spark-one img { width: 30px; }
   .color-chip.chip-two { display: block; right: 6%; bottom: 8%; width: 10px; height: 10px; }
