@@ -104,3 +104,29 @@ document.querySelectorAll('.site-header').forEach(header => {
  if (mobileWidth.addEventListener) mobileWidth.addEventListener('change', closeMenu);
  else if (mobileWidth.addListener) mobileWidth.addListener(closeMenu);
 });
+
+// Let the browser edge follow the footer when it enters the viewport.
+const footer = document.querySelector('.site-footer');
+const themeColor = document.querySelector('meta[name="theme-color"]');
+if (footer && themeColor && 'IntersectionObserver' in window) {
+ const pageColor = themeColor.content;
+ new IntersectionObserver(([entry]) => {
+  themeColor.content = entry.isIntersecting ? '#25369c' : pageColor;
+ }, {threshold: 0}).observe(footer);
+}
+
+// A single entrance per section adds rhythm without constant motion.
+if ('IntersectionObserver' in window && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+ const revealItems = document.querySelectorAll('.image-intro .intro-top, .image-intro .image-sentence, .image-intro .intro-bottom, .services .section-heading, .services .service, .mix-intro, .mix-card, .contact-content, .approach-grid .thought-card');
+ const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+   if (!entry.isIntersecting) return;
+   entry.target.classList.add('is-visible');
+   revealObserver.unobserve(entry.target);
+  });
+ }, {rootMargin: '0px 0px -6% 0px', threshold: 0.05});
+ revealItems.forEach(item => {
+  item.classList.add('reveal-item');
+  revealObserver.observe(item);
+ });
+}
