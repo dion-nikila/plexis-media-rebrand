@@ -16,16 +16,27 @@ if (form) {
  form.addEventListener('submit', async event => {
   event.preventDefault();
   const status = document.querySelector('#form-status');
+  const button = form.querySelector('button[type="submit"]');
+  button.disabled = true;
+  status.textContent = 'Sending your enquiry…';
   try {
    const response = await fetch('/contact-config.json');
    if (!response.ok) throw new Error();
    const {email} = await response.json();
    if (!email) {status.textContent = 'Enquiries are not connected yet. Please check back soon.'; return;}
-   const data = new FormData(form);
-   const body = `Name: ${data.get('name')}\nEmail: ${data.get('email')}\nBrand: ${data.get('brand') || 'Not provided'}\nInterested in: ${data.get('service')}\n\n${data.get('message')}`;
-   location.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Project enquiry — ' + data.get('name')) + '&body=' + encodeURIComponent(body);
-   status.textContent = 'Your email draft is ready to open. Send it from your email app to complete your enquiry.';
-  } catch {status.textContent = 'We could not open your enquiry. Please try again.';}
+   const data = Object.fromEntries(new FormData(form));
+   const submission = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(email), {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify(data)
+   });
+   if (!submission.ok) throw new Error();
+   const result = await submission.json();
+   if (result.success !== true && result.success !== 'true') throw new Error();
+   form.reset();
+   status.textContent = 'Thanks — your enquiry has been submitted. We’ll be in touch by email.';
+  } catch {status.textContent = 'Your enquiry could not be sent. Please try again.';}
+  finally {button.disabled = false;}
  });
 }
 // Each fragment has its own quiet orbit. No opacity cycling or path resets.
@@ -38,9 +49,9 @@ updateHeroMotion();
 
 // A useful starting point, presented as a small stack of studio notes.
 const mixIdeas = {
- identity: {title:'Make it unmistakably you.', description:'Get your positioning, personality, and visual direction working together.', image:'seashell-fern', ingredients:['Brand strategy','Creative direction'], service:'Brand & strategy', link:"Let's find your voice ↗"},
- launch: {title:'Give a good idea a great entrance.', description:'Build a launch story, shape the creative, and get it in front of the right people.', image:'cloud-stairway', ingredients:['Campaign concepts','Content & creative'], service:'Campaigns & growth', link:"Let's plan your launch ↗"},
- connection: {title:'Become part of their everyday.', description:'Find a content rhythm and a social voice people want to spend time with.', image:'feather-origami-bird', ingredients:['Social strategy','Storytelling'], service:'Social & community', link:"Let's build a connection ↗"}
+ identity: {title:'Build a distinct brand.', description:'Bring your positioning, voice, and visual direction into focus.', image:'seashell-fern', ingredients:['Brand strategy','Creative direction'], service:'Brand & strategy', link:"Let's find your voice ↗"},
+ launch: {title:'Launch with a clear idea.', description:'Shape the launch story, create the work, and reach the right people.', image:'cloud-stairway', ingredients:['Campaign concepts','Content & creative'], service:'Campaigns & growth', link:"Let's plan your launch ↗"},
+ connection: {title:'Build a stronger connection.', description:'Find a social voice and content rhythm your audience wants to follow.', image:'feather-origami-bird', ingredients:['Social strategy','Storytelling'], service:'Social & community', link:"Let's build a connection ↗"}
 };
 document.querySelectorAll('.mix-section').forEach(section => {
  section.querySelectorAll('[data-mix]').forEach(button => button.addEventListener('click', () => {

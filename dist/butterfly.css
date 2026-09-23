@@ -1,0 +1,103 @@
+/* One compressed image is reused for the still, wings, and body. */
+.hero-art { perspective: 850px; pointer-events: auto; }
+.butterfly-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.butterfly-trigger:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 5px; }
+.butterfly-scene {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1448 / 1086;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 260ms ease-out;
+  pointer-events: none;
+}
+.butterfly-scene img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  backface-visibility: hidden;
+}
+.butterfly-wing,
+.butterfly-body { visibility: hidden; }
+.butterfly-wing-left {
+  clip-path: polygon(0 0, 22% 0, 29% 12%, 38% 22%, 45% 33%, 49% 45%, 50% 52%, 50% 100%, 0 100%);
+  transform-origin: 50% 45%;
+}
+.butterfly-wing-right {
+  clip-path: polygon(78% 0, 100% 0, 100% 100%, 50% 100%, 50% 52%, 51% 45%, 55% 33%, 62% 22%, 71% 12%);
+  transform-origin: 50% 45%;
+}
+.butterfly-body {
+  clip-path: polygon(27% 0, 73% 0, 70% 15%, 58% 29%, 54% 39%, 54% 55%, 53% 77%, 51% 100%, 49% 100%, 47% 77%, 46% 55%, 46% 39%, 42% 29%, 30% 15%);
+  transform: translateZ(12px);
+}
+@media (min-width: 700px) and (prefers-reduced-motion: no-preference) {
+  .butterfly-scene.is-enhanced .butterfly-static { visibility: hidden; }
+  .butterfly-scene.is-enhanced .butterfly-wing,
+  .butterfly-scene.is-enhanced .butterfly-body { visibility: visible; }
+  .butterfly-scene.is-enhanced .butterfly-wing-left {
+    animation: butterfly-left 6.8s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  .butterfly-scene.is-enhanced .butterfly-wing-right {
+    animation: butterfly-right 6.8s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  .butterfly-scene.is-active .butterfly-wing { animation-play-state: running; }
+}
+@keyframes butterfly-left {
+  0%, 17%, 42%, 100% { transform: rotateY(-3deg) rotateZ(-.3deg); }
+  23% { transform: rotateY(-29deg) rotateZ(1.1deg); }
+  29% { transform: rotateY(-7deg) rotateZ(-.1deg); }
+  35% { transform: rotateY(-24deg) rotateZ(.8deg); }
+}
+@keyframes butterfly-right {
+  0%, 17%, 42%, 100% { transform: rotateY(3deg) rotateZ(.3deg); }
+  23% { transform: rotateY(29deg) rotateZ(-1.1deg); }
+  29% { transform: rotateY(7deg) rotateZ(.1deg); }
+  35% { transform: rotateY(24deg) rotateZ(-.8deg); }
+}
+@media (prefers-reduced-motion: reduce), (max-width: 699px) {
+  .butterfly-scene { transform: none; transition: none; }
+  .butterfly-scene .butterfly-static { visibility: visible; }
+  .butterfly-scene .butterfly-wing,
+  .butterfly-scene .butterfly-body { visibility: hidden; animation: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .butterfly-scene.is-fluttering .butterfly-static { visibility: hidden; }
+  .butterfly-scene.is-fluttering .butterfly-wing,
+  .butterfly-scene.is-fluttering .butterfly-body { visibility: visible; }
+  .butterfly-scene.is-fluttering .butterfly-wing-left {
+    animation: butterfly-click-left 1150ms cubic-bezier(.35, 0, .2, 1) both;
+    animation-play-state: running;
+  }
+  .butterfly-scene.is-fluttering .butterfly-wing-right {
+    animation: butterfly-click-right 1150ms cubic-bezier(.35, 0, .2, 1) both;
+    animation-play-state: running;
+  }
+}
+@keyframes butterfly-click-left {
+  0%, 100% { transform: rotateY(-3deg) rotateZ(-.3deg); }
+  23% { transform: rotateY(-43deg) rotateZ(1.4deg); }
+  51% { transform: rotateY(-6deg) rotateZ(-.2deg); }
+  76% { transform: rotateY(-33deg) rotateZ(1deg); }
+}
+@keyframes butterfly-click-right {
+  0%, 100% { transform: rotateY(3deg) rotateZ(.3deg); }
+  23% { transform: rotateY(43deg) rotateZ(-1.4deg); }
+  51% { transform: rotateY(6deg) rotateZ(.2deg); }
+  76% { transform: rotateY(33deg) rotateZ(-1deg); }
+}

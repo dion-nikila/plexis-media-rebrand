@@ -20,6 +20,8 @@ Open http://localhost:4173. No build step or package installation is required.
 
 ## Contact setup
 
-Set `email` in `dist/contact-config.json` to the agency's enquiry address. The form validates input and opens a prefilled email draft in the visitor's email app. It does not send mail through a server. Until configured, the form explicitly reports that enquiries are not connected.
+The form sends enquiries through FormSubmit to the `email` in `dist/contact-config.json`. The recipient must confirm the activation email from FormSubmit after the first test submission before enquiries will reach the inbox. Check the spam folder if the activation email does not appear. FormSubmit processes and temporarily stores the submitted form data.
 
 Motion respects the visitor's reduced-motion preference. Vercel serves `dist` using `vercel.json`. The GitHub repository is connected for automatic deployments.
+
+The homepage butterfly reuses one compressed transparent WebP for its layered wing motion. It flutters when clicked or tapped; on phones it otherwise stays still. Reduced-motion settings and browsers without the needed features show the still image. The `www.plexis.media` to `plexis.media` redirect is configured on the Vercel project domain.
