@@ -1,6 +1,6 @@
 /* Clearer text and interaction across the site. */
 :root { --site-gutter: 52px; --orange-text: #a73825; }
-html { background: var(--cobalt); }
+html { background: #899780; }
 body { min-height: 100vh; min-height: 100dvh; }
 a:focus-visible, button:focus-visible, summary:focus-visible {
   outline: 3px solid var(--orange-text);
@@ -21,26 +21,55 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .contact-grid .field-label small { font-size: 12px; font-weight: 400; }
 input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
 
-/* A solid footer gives the links and logo consistent contrast over the artwork. */
+/* Let the landscape run to the bottom, with small paper labels for legibility. */
+.contact {
+  background-size: cover;
+  background-position: center bottom;
+}
+.page-footer {
+  padding-top: 190px;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
 .site-footer.wrap {
   box-sizing: border-box;
-  width: 100%;
-  max-width: none;
-  margin-inline: 0;
-  padding: 28px max(var(--site-gutter), calc((100vw - 1392px) / 2));
-  padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  width: calc(100% - 2 * var(--site-gutter));
+  max-width: 1392px;
+  margin-inline: auto;
+  padding: 18px 0 calc(26px + env(safe-area-inset-bottom, 0px));
   border: 0;
-  background: var(--cobalt);
-  color: var(--paper);
+  background: transparent;
+  color: var(--cobalt);
 }
-.site-footer a { color: var(--paper); }
+.site-footer .brand-logo,
+.site-footer > span,
+.site-footer > a:last-child {
+  background: rgba(244, 240, 230, .94);
+  box-shadow: 3px 4px 0 rgba(32, 50, 57, .13);
+}
+.site-footer .brand-logo {
+  box-sizing: border-box;
+  padding: 8px 10px;
+}
+.site-footer > span,
+.site-footer > a:last-child {
+  padding: 9px 11px;
+}
+.site-footer a { color: var(--cobalt); }
 .site-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.site-footer a:focus-visible { outline-color: var(--paper); }
+.site-footer a:focus-visible { outline-color: var(--orange-text); }
+
+.home-intro .intro-bottom { grid-template-columns: minmax(0, 1fr) auto; }
 
 @media (max-width: 1100px) { :root { --site-gutter: 32px; } }
 @media (max-width: 820px) { :root { --site-gutter: 20px; } }
 @media (max-width: 600px) {
   :root { --site-gutter: 16px; }
+  .contact { background-size: auto 100%; }
+  .page-footer { padding-top: 110px; }
+  .home-intro .intro-bottom { grid-template-columns: 1fr; }
+  .home-intro .intro-bottom .text-link { grid-column: auto; }
+  .home-intro .phrase { white-space: normal; }
   .hero { overflow: hidden; }
   .hero-topline { font-size: 11px; letter-spacing: .7px; }
   .hero-stage {
