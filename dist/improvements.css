@@ -149,7 +149,8 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
   }
   .site-header.is-menu-open nav .nav-contact { display: none; }
   .contact { background-size: auto 100%; }
-  .page-footer { padding-top: 110px; }
+  .page-footer { padding-top: 72px; }
+  .contact-row { margin-bottom: 36px; }
   .intro-bottom { grid-template-columns: 1fr; }
   .intro-bottom .text-link { grid-column: auto; }
   .home-intro .phrase { white-space: normal; }
