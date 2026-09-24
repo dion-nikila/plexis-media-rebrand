@@ -44,6 +44,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
 #form-status { min-height: 1.5em; line-height: 1.6; }
 #form-status a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.contact-grid .privacy-note { margin: 0; color: var(--ink); font-size: 14px; line-height: 1.55; }
+.privacy-note a { color: var(--cobalt); text-decoration: underline; text-underline-offset: 3px; }
 
 /* The illustrated landscape remains the full footer scene, including behind its links. */
 .contact {
@@ -124,83 +126,31 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
 .footer-bottom a { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; }
 .footer-bottom a span { font-size: 21px; line-height: 1; }
 
-/* A typographic collage keeps the strip surreal without reusing the page artwork. */
+/* A quiet editorial ribbon stays on the page's paper background. */
 .ticker {
   margin-top: 38px;
   padding: 0;
   overflow: hidden;
-  border-block: 1px solid var(--cobalt);
-  background: var(--blue);
+  border-block: 1px solid #25369c40;
+  background: var(--paper);
   color: var(--cobalt);
   box-shadow: none;
 }
-.ticker-track {
-  display: flex;
-  width: max-content;
-  animation: ticker-collage 44s linear infinite;
-  will-change: transform;
-}
-.ticker-sequence { display: flex; flex: none; align-items: center; gap: 26px; padding: 16px 26px 16px 0; }
-.ticker-piece { display: inline-flex; flex: none; white-space: nowrap; line-height: 1; }
-.ticker-question {
-  color: var(--orange-text);
-  font-family: var(--serif);
-  font-size: clamp(42px, 4.8vw, 70px);
-  font-style: italic;
-  font-weight: 600;
-  letter-spacing: -3px;
-  transform: rotate(-4deg);
-}
-.ticker-stamp {
-  flex-direction: column;
-  gap: 7px;
-  padding: 11px 16px;
-  border: 1px solid var(--cobalt);
-  background: var(--paper);
-  box-shadow: 4px 4px 0 var(--cobalt);
-  transform: rotate(3deg);
-}
-.ticker-stamp small, .ticker-collage small, .ticker-phrase small {
-  font-family: var(--sans);
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: 1.6px;
-}
-.ticker-stamp strong { font-size: 24px; font-weight: 500; letter-spacing: -.6px; }
-.ticker-crossout {
-  color: var(--cobalt);
-  font-size: clamp(34px, 3.4vw, 51px);
-  font-weight: 500;
-  letter-spacing: -2px;
-  text-decoration: line-through;
-  text-decoration-color: var(--orange);
-  text-decoration-thickness: 3px;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px var(--cobalt);
-}
-.ticker-collage {
-  flex-direction: column;
-  gap: 5px;
-  padding: 9px 16px;
-  background: var(--cobalt);
-  color: var(--paper);
-  transform: rotate(-3deg);
-}
-.ticker-collage small { color: #d6dcf3; }
-.ticker-collage em { font-family: var(--serif); font-size: 34px; font-weight: 600; letter-spacing: -1.3px; }
-.ticker-asterisk { color: var(--orange-text); font-family: var(--serif); font-size: 55px; transform: rotate(14deg); }
-.ticker-phrase { flex-direction: column; gap: 8px; padding-block: 8px; border-block: 1px solid var(--cobalt); }
-.ticker-phrase strong { font-family: var(--serif); font-size: 31px; font-style: italic; font-weight: 600; letter-spacing: -1px; }
+.ticker-track { display: flex; width: max-content; animation: none; }
+.ticker.is-ready .ticker-track { animation: ticker-collage 38s linear infinite; will-change: transform; }
+.ticker-sequence { display: flex; flex: none; align-items: center; gap: 28px; padding: 18px 28px 18px 0; }
+.ticker-item { display: inline-flex; flex: none; align-items: baseline; gap: 11px; white-space: nowrap; line-height: 1; }
+.ticker-item small { color: var(--orange-text); font-size: 11px; font-weight: 600; letter-spacing: 1px; }
+.ticker-item em, .ticker-item strong { font-size: clamp(33px, 3.5vw, 52px); letter-spacing: -1.9px; }
+.ticker-item em { font-family: var(--serif); font-style: italic; font-weight: 600; }
+.ticker-item strong { font-family: var(--sans); font-weight: 500; }
+.ticker-item-question em { color: var(--orange-text); transform: rotate(-3deg); }
+.ticker-item-serif em { transform: translateY(3px); }
+.ticker-rule { width: 34px; height: 1px; flex: none; background: var(--cobalt); opacity: .5; }
 @keyframes ticker-collage { to { transform: translate3d(-50%, 0, 0); } }
 
-/* Entrance motion gives the editorial sections a little rhythm. */
-@media (prefers-reduced-motion: no-preference) {
-  .reveal-item { opacity: 0; translate: 0 20px; transition: opacity .75s ease, translate .75s cubic-bezier(.2,.7,.2,1); }
-  .reveal-item.is-visible { opacity: 1; translate: 0 0; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .ticker-track { animation: none; }
+  .ticker.is-ready .ticker-track { animation: none; will-change: auto; }
   .footer-social-icon { transition: none; }
 }
 
@@ -337,17 +287,12 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
   .footer-social-icon { width: 44px; height: 44px; }
   .footer-bottom { padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
   .ticker { margin-top: 28px; }
-  .ticker-track { animation-duration: 34s; }
-  .ticker-sequence { gap: 18px; padding: 12px 18px 12px 0; }
-  .ticker-question { font-size: 42px; letter-spacing: -2px; }
-  .ticker-stamp { gap: 5px; padding: 8px 11px; box-shadow: 3px 3px 0 var(--cobalt); }
-  .ticker-stamp small, .ticker-collage small, .ticker-phrase small { font-size: 9px; letter-spacing: 1px; }
-  .ticker-stamp strong { font-size: 19px; }
-  .ticker-crossout { font-size: 33px; letter-spacing: -1px; }
-  .ticker-collage { padding: 8px 12px; }
-  .ticker-collage em { font-size: 26px; }
-  .ticker-asterisk { font-size: 40px; }
-  .ticker-phrase strong { font-size: 23px; }
+  .ticker.is-ready .ticker-track { animation-duration: 30s; }
+  .ticker-sequence { gap: 18px; padding: 14px 18px 14px 0; }
+  .ticker-item { gap: 7px; }
+  .ticker-item small { font-size: 10px; }
+  .ticker-item em, .ticker-item strong { font-size: 32px; letter-spacing: -1.2px; }
+  .ticker-rule { width: 22px; }
   .hero-spark.spark-one { display: block; top: 8%; right: 2%; width: 30px; opacity: .8; }
   .hero-spark.spark-one img { width: 30px; }
   .color-chip.chip-two { display: block; right: 6%; bottom: 8%; width: 10px; height: 10px; }

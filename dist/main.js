@@ -115,18 +115,10 @@ if (footer && themeColor && 'IntersectionObserver' in window) {
  }, {threshold: 0}).observe(footer);
 }
 
-// A single entrance per section adds rhythm without constant motion.
-if ('IntersectionObserver' in window && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
- const revealItems = document.querySelectorAll('.image-intro .intro-top, .image-intro .image-sentence, .image-intro .intro-bottom, .services .section-heading, .services .service, .mix-intro, .mix-card, .contact-content, .approach-grid .thought-card');
- const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-   if (!entry.isIntersecting) return;
-   entry.target.classList.add('is-visible');
-   revealObserver.unobserve(entry.target);
-  });
- }, {rootMargin: '0px 0px -6% 0px', threshold: 0.05});
- revealItems.forEach(item => {
-  item.classList.add('reveal-item');
-  revealObserver.observe(item);
- });
+// Start the ribbon after local fonts settle so its repeat stays seamless.
+const ticker = document.querySelector('.ticker');
+if (ticker) {
+ const startTicker = () => ticker.classList.add('is-ready');
+ if (document.fonts && document.fonts.ready) document.fonts.ready.then(startTicker, startTicker);
+ else startTicker();
 }
