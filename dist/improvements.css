@@ -126,9 +126,9 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
 .footer-bottom a { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; }
 .footer-bottom a span { font-size: 21px; line-height: 1; }
 
-/* A quiet editorial ribbon stays on the page's paper background. */
+/* A moving editorial collage of the four services, on the page's paper. */
 .ticker {
-  margin-top: 38px;
+  margin-top: 34px;
   padding: 0;
   overflow: hidden;
   border-block: 1px solid #25369c40;
@@ -137,16 +137,24 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
   box-shadow: none;
 }
 .ticker-track { display: flex; width: max-content; animation: none; }
-.ticker.is-ready .ticker-track { animation: ticker-collage 38s linear infinite; will-change: transform; }
-.ticker-sequence { display: flex; flex: none; align-items: center; gap: 28px; padding: 18px 28px 18px 0; }
-.ticker-item { display: inline-flex; flex: none; align-items: baseline; gap: 11px; white-space: nowrap; line-height: 1; }
-.ticker-item small { color: var(--orange-text); font-size: 11px; font-weight: 600; letter-spacing: 1px; }
-.ticker-item em, .ticker-item strong { font-size: clamp(33px, 3.5vw, 52px); letter-spacing: -1.9px; }
-.ticker-item em { font-family: var(--serif); font-style: italic; font-weight: 600; }
-.ticker-item strong { font-family: var(--sans); font-weight: 500; }
-.ticker-item-question em { color: var(--orange-text); transform: rotate(-3deg); }
-.ticker-item-serif em { transform: translateY(3px); }
-.ticker-rule { width: 34px; height: 1px; flex: none; background: var(--cobalt); opacity: .5; }
+.ticker.is-ready .ticker-track { animation: ticker-collage 58s linear infinite; will-change: transform; }
+.ticker-sequence { display: flex; flex: none; align-items: center; padding: 18px 0; }
+.ticker-piece { display: flex; flex: none; flex-direction: column; justify-content: center; gap: 5px; padding-inline: 8px; white-space: nowrap; }
+.ticker-piece small { display: block; color: var(--ink); font-size: 11px; font-weight: 700; letter-spacing: 1.55px; line-height: 1.2; }
+.ticker-piece strong { display: block; color: var(--cobalt); font-size: clamp(43px, 4.25vw, 64px); font-weight: 500; letter-spacing: -2.8px; line-height: 1.08; }
+.ticker-piece strong em { font-family: var(--serif); font-style: italic; font-weight: 600; }
+.ticker-brand small { padding-left: 17px; }
+.ticker-brand strong { transform: rotate(-2deg) translateY(2px); }
+.ticker-brand strong em { color: var(--orange-text); }
+.ticker-content small, .ticker-campaign small { order: 2; align-self: flex-end; padding-right: 5px; }
+.ticker-content strong { transform: translateY(-3px); }
+.ticker-social small { padding-left: 24px; }
+.ticker-social strong { transform: rotate(2deg) translateY(2px); }
+.ticker-campaign strong { transform: translateY(-3px); }
+.ticker-orbit { position: relative; width: 66px; height: 58px; flex: none; margin-inline: 31px; }
+.ticker-orbit::before, .ticker-orbit::after { content: ""; position: absolute; width: 29px; height: 48px; border: 1.5px solid var(--cobalt); border-radius: 50%; }
+.ticker-orbit::before { top: 5px; left: 14px; transform: rotate(42deg); }
+.ticker-orbit::after { top: 6px; left: 25px; border-color: var(--orange-text); transform: rotate(-33deg); }
 @keyframes ticker-collage { to { transform: translate3d(-50%, 0, 0); } }
 
 @media (prefers-reduced-motion: reduce) {
@@ -287,12 +295,17 @@ input::placeholder, textarea::placeholder { color: #596166; opacity: 1; }
   .footer-social-icon { width: 44px; height: 44px; }
   .footer-bottom { padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
   .ticker { margin-top: 28px; }
-  .ticker.is-ready .ticker-track { animation-duration: 30s; }
-  .ticker-sequence { gap: 18px; padding: 14px 18px 14px 0; }
-  .ticker-item { gap: 7px; }
-  .ticker-item small { font-size: 10px; }
-  .ticker-item em, .ticker-item strong { font-size: 32px; letter-spacing: -1.2px; }
-  .ticker-rule { width: 22px; }
+  .ticker.is-ready .ticker-track { animation-duration: 43s; }
+  .ticker-sequence { padding-block: 15px; }
+  .ticker-piece { gap: 4px; padding-inline: 4px; }
+  .ticker-piece small { font-size: 10px; letter-spacing: 1.2px; }
+  .ticker-piece strong { font-size: clamp(34px, 9.2vw, 39px); letter-spacing: -1.8px; }
+  .ticker-brand small { padding-left: 10px; }
+  .ticker-social small { padding-left: 12px; }
+  .ticker-orbit { width: 47px; height: 45px; margin-inline: 20px; }
+  .ticker-orbit::before, .ticker-orbit::after { width: 22px; height: 37px; }
+  .ticker-orbit::before { top: 4px; left: 8px; }
+  .ticker-orbit::after { top: 4px; left: 17px; }
   .hero-spark.spark-one { display: block; top: 8%; right: 2%; width: 30px; opacity: .8; }
   .hero-spark.spark-one img { width: 30px; }
   .color-chip.chip-two { display: block; right: 6%; bottom: 8%; width: 10px; height: 10px; }
